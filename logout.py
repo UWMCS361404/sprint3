@@ -16,4 +16,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 autoescape=True)
 
 class Logout(webapp2.RequestHandler):
-    """stuff here"""
+    def get(self):
+        self.response.delete_cookie('CurrentUser')
+        self.redirect("/")

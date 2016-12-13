@@ -11,4 +11,5 @@ from google.appengine.ext import ndb
 from google.appengine.ext import testbed
 
 class AdminPage(webapp2.RequestHandler):
-    """stuff here"""
+    def get(self):
+        """stuff"""
