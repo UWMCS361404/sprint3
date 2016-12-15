@@ -17,15 +17,12 @@ from util import *
 class InstructorCenter(webapp2.RequestHandler):
     def get(self):
         CurrentUser = getAccount(self.request.cookies.get('CurrentUser'))
-        print("test one")
-        print(CurrentUser)
-        print("test two")
-        print(CurrentUser.Name)
         # idk if the next line is relevent or not. it seems I'm getting an outdated 'CurrentUser' unless I do this.
         instructor = User.query(User.Name == CurrentUser.Name).get()
         QL = []
         SL = []
         LL = instructor.lectures
+        print("\t\t" + str(type(instructor.lectures)))
 
         #QL.append(Question.query(Question.lec == 'cs361').fetch())
         for lecName in instructor.lectures: # this is a list of Lecture names
@@ -34,8 +31,9 @@ class InstructorCenter(webapp2.RequestHandler):
                 key = ndb.Key(urlsafe=QuestionKey)       # construct key
                 QL.append(key.get())                    #append QL with
             for name in lec.userNames:
-                if not SL.contains(username):
-                    SL.append(username)
+
+                if not SL.contains(name):
+                    SL.append(name)
 
         # for lecName in instructor.lectures:
         #     lec = Lecture.query(Lecture.name==lecName).get()                         # get lecture from name
