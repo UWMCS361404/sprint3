@@ -29,6 +29,7 @@ class Question(ndb.Model):
     topic = ndb.StringProperty()
     lec = ndb.StringProperty()
     time = ndb.DateTimeProperty()
+    answered = ndb.BooleanProperty()
     messageList = ndb.StructuredProperty(Message, repeated=True)
 
     def toString(self):

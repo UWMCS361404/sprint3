@@ -31,8 +31,7 @@ class InstructorCenter(webapp2.RequestHandler):
                 key = ndb.Key(urlsafe=QuestionKey)       # construct key
                 QL.append(key.get())                    #append QL with
             for name in lec.userNames:
-
-                if not SL.contains(name):
+                if name not in SL:
                     SL.append(name)
 
         # for lecName in instructor.lectures:
@@ -43,7 +42,7 @@ class InstructorCenter(webapp2.RequestHandler):
 
         template = JINJA_ENVIRONMENT.get_template('Html/insc.html')
         template_values = {
-            "CurrentUser": CurrentUser.userName,
+            "CurrentUser": instructor, # instructor's info is updated and now you have the User object
             'QL': QL,
             'SL': SL,
             'LL': LL
@@ -55,21 +54,20 @@ class InstructorCenter(webapp2.RequestHandler):
         q.time = datetime.datetime.now()
         q.owner = self.request.get('Student')
         q.topic = self.request.get('topic')
-        q.content = self.request.get('content')
         q.answered = False
-        q.lec = self.request.get('')
         q.put()
         self.redirect('/instructorcenter')
 
-    def goToChat(self):
-        print('entering goToChat')
-        questionKeyString = self.request.get('Quest')
-        print('printing key string')
-        print(questionKeyString)
-        questionKey = ndb.Key(urlsafe=questionKeyString)
-        question = questionKey.get()
-        print('printing topic')
-        print(question.topic)
-        template_values = {
-             'user'
-        }
+    # wont work because defining own method. make a class
+    # def goToChat(self):
+    #     print('entering goToChat')
+    #     questionKeyString = self.request.get('Quest')
+    #     print('printing key string')
+    #     print(questionKeyString)
+    #     questionKey = ndb.Key(urlsafe=questionKeyString)
+    #     question = questionKey.get()
+    #     print('printing topic')
+    #     print(question.topic)
+    #     template_values = {
+    #          'user'
+    #     }
