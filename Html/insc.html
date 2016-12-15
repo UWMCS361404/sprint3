@@ -1,58 +1,156 @@
 <!DOCTYPE html>
+<style>
+table, th, td {
+    border: 1px solid black;
+    }
+
+
+    ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+}
+
+    li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: #666;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+li a.active {
+    color: white;
+    background-color: #4CAF50;
+}
+
+        divi {
+        width: 200px;
+        height: 150px;
+            background: lightblue;
+            position: absolute;
+        -webkit-transition: height 2s; /* Safari */
+        transition: height 2s;
+            }
+
+/* For Safari 3.1 to 6.0 */
+
+#div2 {-webkit-transition-timing-function: ease;}
+
+
+/* Standard syntax */
+
+#div2 {transition-timing-function: ease;}
+
+divi:hover {
+    height: 500px;
+}
+
+</style>
 <html lang="en-US">
 <head>
 	<title>Instructor Center</title>
-	<link rel="stylesheet" type="text/css" href="Style/style.css">
+
+	<link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
 
 <body>
-  <h1>
-  Hello, {{CurrentUser}}
+     <img src="style/wallpapersprint.png" style="width:200px;height:100px;">
+
+     <ul>
+       <li><a class="active" href="insc.html">Home</a></li>
+       <li><a href="faq.html">FAQ</a></li>
+       <li><a href="#about">About</a></li>
+    <form action = "/logout" method="get">
+    <li style=""><a>Logout</a></li>
+       </form>
+</ul>
+    <h1 style="color:darkgrey;margin-left:000px;">
+  Welcome {{CurrentUser.Name}}!
   </h1>
-  <div id="list_of_questions">
+    <br><br>
+
+    <divi  id="div2">
+                <h2 style="color:black;margin-left:30px;"> To start Chat with Student</h2>
+
+                    <p style="color:white;margin-left:30px;">Hold for help</p><br>
+                <p style="color:white;margin-left:30px;">Enter Topic in the first TextBox</p>
+                <p style="color:white;margin-left:30px;">The message body in the second</p>
+                <p style="color:white;margin-left:30px;">Select a Student from the drop down menu</p>
+                </divi>
+<div style="color:black;margin-left:500px;" id="previous_questions">
+Your unanswered questions:<br>
+</div><br>
+
+  <div style="color:blue;margin-left:500px;" id="list_of_questions">
   <form action="/chat" method="get">
 	<table>
 	<tr>
-    <th></th>
+        <td> </td>
+
+    <th>Question</th>
   	<th>Student</th>
   	<th>Class</th>
-  	<th>Question</th>
     <th>Time</th>
-  <tr>
+        </tr>
   {% for q in QL %}
 {% if q.answered == False %}
   <tr>
     <td> <input type="radio" name="Quest" value="{{ q.put().id }}" required></td>
-    <td>{{ q.owner }}</td>
-    <td>{{ q.lec }}</td>
     <td>{{ q.topic }}</td>
+      <td>{{ q.owner }}</td>
+    <td>{{ q.lec }}</td>
+
     <td>{{ q.time }}</td>
   </tr>
     {% endif %}
   {% endfor %}
 </table>
 
-  <input type="submit" value="Go to Question">
+  <input style="color:red;margin-left:000px;" type="submit" value="Go to Question">
   </form>
   </div>
 </body>
 
-<div id="new_question">
+<br><br><br><br>
+<div style="color:blue;margin-left:500px;" id="new_question">
 Ask a new question:
 <br>
-<textarea input type="text" name="topic" value="topic" rows="1" cols="48"></textarea>
+<textarea input type="text" name="topic" value="topic" rows="1" cols="48">Enter Subject</textarea>
    <br>
-<textarea input type="text" name="content" value="content" rows="5" cols="48"></textarea>
+<textarea input type="text" name="content" value="content" rows="5" cols="48">Enter Message body</textarea>
 <br>
-   <input type="text" value="student" name="student"></input>
+    <select>
+      {%for s in SL %}
+  <option value="">{{s.name}}</option>
+      {% endfor %}
+    </select>
+
 <br>
-<input type="submit" value= "Ask a question"/>
+<input style="color:red;margin-left:00px;" type="submit" value= "Ask a question"/>
 
 </div>
-<form action="/faq" method="get">
-<input type="submit" value= "Go to faq"/>
+<div  style="color:yellow;margin-left:650px;" id="gotoFAQ">
+	<td><a href="faqq.html">Go to F.A.Q</a></td>
+</div>
+<form action="/logout" method="get">
+<input type="submit" value="Logout"/>
 </form>
-
-
+{% if CurrentUser.aType == 'a' %}
+<form action="/admin" method="get">
+<input type="submit" value="AdminPagex"/>
+</form>
+{% endif %}
 
 </html>

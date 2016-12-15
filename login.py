@@ -40,14 +40,13 @@ class Login(webapp2.RequestHandler):
             self.response.write(template.render(template_values))
             error
         else:
-            print('login else')
             if User.query(User.Name == uNm).get().aType == 's':
                 self.redirect('/studentcenter')
 
-            if User.query(User.Name == uNm).get().aType == 'i':
+            elif User.query(User.Name == uNm).get().aType == 'i':
                 self.redirect('/instructorcenter')
 
-            if User.query(User.Name == uNm).get().aType == 'a':
+            elif User.query(User.Name == uNm).get().aType == 'a':
                 self.redirect('/instructorcenter')
 
 

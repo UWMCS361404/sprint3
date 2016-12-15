@@ -23,15 +23,16 @@ autoescape=True)
 # string would look like
 #
 def parseUserString(string):
+    
     subStr = string
 
     while subStr != "":
         userName = subStr[:subStr.find(",")].strip() # We assume that the string does not begin with a comma
 
-        
+
         if len(list(User.query(User.Name == userName))) != 0:
             return 'User name already exists.'
-        
+
         #print("Loop")
 
         subStr = subStr[subStr.find(",") + 1:] # Move the sub string forward
@@ -57,7 +58,6 @@ def parseUserString(string):
 
 def getAccount(userName):
     user = User.query(User.Name == userName).get()
-
     return user
 
 def getInstrAccount(uList):

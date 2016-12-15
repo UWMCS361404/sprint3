@@ -7,6 +7,7 @@ import datetime
 import calendar
 import unittest
 
+from user import *
 from google.appengine.ext import ndb
 from google.appengine.ext import testbed
 
@@ -18,4 +19,9 @@ autoescape=True)
 class Logout(webapp2.RequestHandler):
     def get(self):
         self.response.delete_cookie('CurrentUser')
+        users = User.query().fetch()
+        for user in users:
+        	for lec in user.lectures:
+        		print(lec)
+        		print("\n")
         self.redirect("/")
