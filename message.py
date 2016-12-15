@@ -15,10 +15,15 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
 autoescape=True)
 
+# Message
+#     content is the message text
+#     name is who sent it(can be student or instructor)
+#     time gets set on instantiation. Only read, never set
+
 class Message(ndb.Model):
     content = ndb.StringProperty()
     name = ndb.StringProperty()
-    time = ndb.DateTimeProperty()
+    time = ndb.DateTimeProperty(auto_now_add=True)
 
     def contains(self, str): # Not needed in the final design, but it might be helpful for debug
         if content.contains(str) or name.contains(str):

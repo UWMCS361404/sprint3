@@ -13,6 +13,13 @@ from google.appengine.ext import testbed
 # Project imports
 from lecture import *
 
+# User
+#     Name is a unique name. On creation it cannot be in store
+#     userName is Displayed to user on page
+#     password is a string password
+#     atype is a 1 character string "a", "i", or "s" for admin, instructor, or student
+#     lecture is a list of unique lecture names
+
 class User(ndb.Model):
     Name = ndb.StringProperty()
     userName = ndb.StringProperty()
