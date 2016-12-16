@@ -23,13 +23,16 @@ autoescape=True)
 # string would look like
 #
 def parseUserString(string):
-    
-    subStr = string
+
+    subStr = string + "\n"
 
     while subStr != "":
+        if subStr[0] == ',':
+            return
         userName = subStr[:subStr.find(",")].strip() # We assume that the string does not begin with a comma
 
-
+        if userName == "":
+            return
         if len(list(User.query(User.Name == userName))) != 0:
             return 'User name already exists.'
 
@@ -37,13 +40,19 @@ def parseUserString(string):
 
         subStr = subStr[subStr.find(",") + 1:] # Move the sub string forward
         accountName = userPassword = subStr[:subStr.find(",")].strip() # Get data
-
+        if accountName == "":
+            print("accountName was bunkus")
+            return
         subStr = subStr[subStr.find(",") + 1:] # Move the sub string forward
         userPassword = subStr[:subStr.find(",")].strip() # Get data
-
+        if userPassword == "":
+            print("userPassword was bunkus")
+            return
         subStr = subStr[subStr.find(",") + 1:] # Move the sub string forward
         account = subStr[:subStr.find(",")].strip() # Get data
-
+        if account == "":
+            print("account was bunkus")
+            return
         user = User() # Create the user
 
         user.Name = userName

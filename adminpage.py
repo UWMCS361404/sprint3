@@ -58,23 +58,17 @@ class Enroll(webapp2.RequestHandler):
         lectures = self.request.get_all("lectures")
         print(users)
         for lec in lectures:
-            print("lec = ")
-            print(lec)
             currentLec = Lecture.query(Lecture.name==lec).get()
-            print("currentLec =")
-            print(currentLec)
             for user in users:
-                print("user=")
-                print(user)
                 currentUser = User.query(User.Name==user).get()
-                print("currentuser = ")
-                print(currentUser)
-                currentLec.userNames.append(currentUser.Name)
-                currentUser.lectures.append(currentLec.name)
-                print("final currentLec =")
-                print(currentLec)
-                print("final currentuser = ")
-                print(currentUser)
-                currentLec.put()
-                currentUser.put()
+                if user not in currentLec.userNames:
+                    print("\t\t\tuser is" + repr(user))
+                    currentLec.userNames.append(currentUser.Name)
+                    currentLec.put()
+
+                if lec not in currentUser.lectures:
+                    print("\t\t\lec is" + repr(lec))
+                    currentUser.lectures.append(currentLec.name)
+                    currentUser.put()
+
         self.redirect("/admin")

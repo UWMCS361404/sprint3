@@ -22,17 +22,27 @@ class InstructorCenter(webapp2.RequestHandler):
         QL = []
         SL = []
         LL = instructor.lectures
-        print("\t\t" + str(type(instructor.lectures)))
 
         #QL.append(Question.query(Question.lec == 'cs361').fetch())
         for lecName in instructor.lectures: # this is a list of Lecture names
-            lec = Lecture.query(Lecture.name==lecName).get()                         # get lecture from name
+            lec = Lecture.query(Lecture.name==lecName).get()                       # get lecture from name
+            print("\n\n\n\t\t\tprint Lecture.query(Lecture.name==lecName).get()\n\t")
+            print(lec)
             for QuestionKey in lec.QL:
+                print(QuestionKey)
                 key = ndb.Key(urlsafe=QuestionKey)       # construct key
-                QL.append(key.get())                    #append QL with
+                q = key.get()
+                print("\t\tprint q=key.get()\n")
+                print(q)
+                print("\t\tend current question q")
+                QL.append(q)                    #append QL with
             for name in lec.userNames:
                 if name not in SL:
-                    SL.append(name)
+                    S = User.query(User.Name==name).get()
+                    if S != None:
+                        if S.aType == 's':
+                            SL.append(name)
+            print("\t\t\tend current question q")
 
         # for lecName in instructor.lectures:
         #     lec = Lecture.query(Lecture.name==lecName).get()                         # get lecture from name
@@ -50,12 +60,28 @@ class InstructorCenter(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
     def post(self):
+
         q = Question()
+        m = Message()
+        m.name = self.request.cookies.get("CurrentUser")
+        m.content = self.request.get('content')
         q.time = datetime.datetime.now()
-        q.owner = self.request.get('Student')
-        q.topic = self.request.get('topic')
+        q.lec = self.request.get("lecture")
+        q.student = self.request.get("student")
+        q.topic = self.request.get("topic")
         q.answered = False
-        q.put()
+        q.ML.append(m)
+        lec = Lecture.query(Lecture.name==q.lec).get()
+        print(lec)
+        print(q)
+        key = q.put().urlsafe()
+        if lec != None:
+            if lec.QL == None:
+                lec.QL = []
+            lec.QL.append(key)
+            m.put()
+            q.put()
+            lec.put()
         self.redirect('/instructorcenter')
 
     # wont work because defining own method. make a class

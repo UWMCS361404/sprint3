@@ -13,52 +13,55 @@ table, th, td {
 <body>
 
 <h1>
-Welcome {{uNm}}
+Welcome {{CurrentUser}}
 </h1>
 
 <div id="previous_questions">
 Your Previously asked questions:
 </div>
+<div style="color:blue;" align="center" id="list_of_questions">
+<form action="/chat" method="get">
+<table>
+<tr>
+      <td> </td>
 
-<div id="list_of_questions">
-	<table>
-	<tr>
-    <th>Topic           | </th>
-	<th>Time           | </th>
-	<th>Instructor         | </th>
-	<th>Answered    | </th>
-	</tr>
-	{% for item in QuestionList %}
-	<tr>
-    <td>{{ item.topic }}</td>
-		<td>{{ item.time }}</td>
-		<td>{{ item.owner }}</td>
-  	<td>{{ item.answered }}</td>
-	</tr>
-	{% endfor %}
-
+  <th>Question</th>
+  <th>Lecure</th>
+  <th>Time</th>
+      </tr>
+{% for q in QL %}
+<tr>
+  <td> <input type="radio" name="Quest" value="{{ q.key.urlsafe()}}" required></td>
+  <td>{{ q.topic }}</td>
+  <td>{{ q.lec }}</td>
+  <td>{{ q.time }}</td>
+</tr>
+{% endfor %}
+</table>
 	</table>
 </div>
 
-<form action="/chat" method="get">
   <input type="submit" value="Go to Question">
 </form>
 
-<form action="/studentcenter" method="post">
-    <div>
-        Ask a new question:
-        <br>
-        <textarea input type="text" name="topic" rows="1" cols="48" placeholder="Enter Text Here"></textarea><br>
-        <textarea input type="text" name="content" rows="5" cols="48" placeholder = "Ask a new question(Please check the F.A.Q first)"></textarea><br>
-        Select a Class<br>
-        <input type="text" value="cs361" name="class"></input>
-    </div>
+<form action="/studentcenter" method="post" id="questionForm">
+<br>
+<input type="text" name="topic" value="topic" rows="1" cols="48" required="True">Enter Subject</textarea>
+   <br>
+<input type="text" name="content" value="content" rows="5" cols="48" required="True">Enter Message body</textarea>
+<br>
+    <select name="lecture" form="questionForm">
+      {%for l in LL %}
+  <option value="{{l}}">{{l}}</option>
+      {% endfor %}
+    </select>
+
+    <br>
     <input type="submit" value= "Ask a question"/>
-</form>
+    </form>
 
 <div>
     <form action="/studentcenter" method="post" value="faq">
-        Class:
         <input type="text" name="lecture" required/> <br>
         <input type="submit" value="Go to F.A.Q">
     </form>

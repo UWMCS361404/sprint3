@@ -30,7 +30,7 @@ class Question(ndb.Model):
     lec = ndb.StringProperty()
     time = ndb.DateTimeProperty()
     answered = ndb.BooleanProperty()
-    messageList = ndb.StructuredProperty(Message, repeated=True)
+    ML = ndb.StructuredProperty(Message, repeated=True)
 
     def toString(self):
         s = (("(")+ self.topic + (",") + self.lec  + (",") + self.time  + (",") + ("{") )
