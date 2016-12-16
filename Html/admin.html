@@ -1,88 +1,56 @@
 <DOCTYPE html>
-    <html><head>
-        <!-- <link rel="stylesheet" type="text/css" href="style/style.css"> -->
-        <title>
+  <html>
+    <head>
+      <!-- <link rel="stylesheet" type="text/css" href="style/style.css"> -->
+      <title>
         Administrator Page
-        </title>
+      </title>
+    </head>
+    <body><img src="style/wallpapersprint.png">
 
-        </head>
-        <form action="/createUsers" method="post">
-          <textarea rows="4" cols="50" name="userText">
-          </textarea>
+      <form action="/createUsers" method="post">
+        <textarea rows="4" cols="50" name="userText"></textarea>
+        <input type="submit" value="Submit">
+      </form>
+      <div  id="div2" align="center">
+        <h2 style="color:black;"> Enroll Users into lectures</h2>
+        <form action="/enroll" method="post" >
+          <table>
+            <tr>
+              <th>Users</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+              <td><input type="checkbox" value="{{user.Name}}" name="users"> {{user.Name}} ({{user.userName}})<br></td>
+            </tr>
+            {% endfor %}
+          </table>
+          <table>
+            <tr>
+              <th>Lectures</th>
+            </tr>
+            {% for l in lectures %}
+            <tr>
+              <td><input type="checkbox" value="{{l.name}}" name="lectures"> {{l.name}}<br></td>
+            </tr>
+            {% endfor %}
+          </table>
           <input type="submit" value="Submit">
         </form>
+        <br>
+      </div>
 
-
-        <body><img src="style/wallpapersprint.png" style="width:200px;height:100px;">
-
-
-            <br>
-
-            <br>
-
-                <div  id="div2">
-                <h2 style="color:black;"> Enroll Users into lectures</h2>
-
-                    <p style="color:white;">Hold for help</p>    <br>
-                <p style="color:white;">Select The User(s) to enroll into classes</p>
-                <p style="color:white;">Select Classes to enroll into, then press submit</p>
-                </div>
-
-
-
-
-    <form action="/enroll" method="post" >
-                 <table style="color:black;margin-left:500px;">
-  <tr>
-    <th>Users</th>
-
-  </tr>
-
-    {% for user in users %}
-  <tr>
-    <td><input type="checkbox" value="{{user.Name}}" name="users"> {{user.Name}}<br></td>
-  </tr>
-    {% endfor %}
-
-</table>
-                   <table style="color:black;margin-left:500px;">
-  <tr>
-    <th>Lectures</th>
-
-  </tr>
-
-{% for l in lectures %}
-{{l.name}} outside
-  <tr>
-    <td><input type="checkbox" value="{{l.name}}" name="lectures"> {{l.name}}<br></td>
-  </tr>
-{% endfor %}
-
-</table>
-<br>
-    <br>
-               <input style="color:black;margin-left:500px;" type="submit" value="Submit">
-            </form>
-<br>
-    <br>
+      <div align="center" id="div2">
+        <form action="/createLecture" method="post">
+          <h2 style="color:black;"> Make new Lecture</h2>
           <br>
-    <br>
-
-            <form action="/createLecture" method="post">
-                <div  id="div2">
-                <h2 style="color:black;"> Make new Lecture</h2>
-
-                    <p style="color:white;">Hold for help</p>    <br>
-                <p style="color:white;">Write the name of the new lecture as is.</p>
-
-                </div>
-                <p style="color:black;margin-left:500px;">Make new Lecture down Below</p>
-                <input type="text" name="lecName" required="True">
-
-                <br>
-
-            <input style="color:black;margin-left:500px;" type="submit" value="Submit">
-            </form>
+          <p>Make new Lecture down Below</p>
+          <input type="text" name="lecName" required="True">
+          <br>
+          <input type="submit" value="Submit">
+        </form>
+      </div>
 
 
-        </body>
+    </body>
+  </html>

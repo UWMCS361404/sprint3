@@ -28,7 +28,7 @@ class Lecture(ndb.Model):
     QL = ndb.StringProperty(repeated=True)
 
     def enroll(self, User):
-        self.userNames.append(User.userName)
+        self.userNames.append(User.Name)
         User.lectures.append(self.name)
 
     def toString(self):

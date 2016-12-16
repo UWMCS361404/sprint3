@@ -6,34 +6,34 @@ FAQit Web App Chat
 <link rel="stylesheet" type="text/css" href="Style/style.css">
 </head>
 <body>
-<h1>FAQit Chat Client</h1>
+  <img src="style/wallpapersprint.png" style="width:500px;height:100px;">
+<h1>FAQit Chat Client ({{CurrentUser}})</h1>
 <hr>
 <p>
-{{user}}'s Chat History With: {{student}}
+
+{{q.student}}'s question for {{ q.lec }}
+topic: {{q.topic}}
+
 </p>
 
 <div class="chatArea">
-    {% for message in messages %}
-        {% if message.getSender().getaType() == "i" %}
-            {% if message.getReceiver().getName() == student or message.getReceiver().getName() == user%}
+    {% for m in q.ML %}
+        {% if message.name != q.student %}
                 <div class="iMessage">
-                <div class="messageMeta"> {{message.getSender().getName()}}</div>
-                <hr>{{message.getContent()}}<hr>
-                <div class="messageMeta">{{message.getTime().month}} {{message.getTime().day}}, {{message.getTime().year}}<br>
-                {{message.getTime().hour}}:{{message.getTime().minute}}</div>
+                <div class="messageMeta"> {{message.name}}</div>
+                <hr>{{message.content}}<hr>
+                <div class="messageMeta">{{message.time.month}}/{{message.time.day}}/{{message.time.year}}<br>
+                {{message.time.hour}}:{{message.time.minute}}</div>
                 </div>
-            {% endif %}
         {% endif %}
 
-        {% if message.getSender().getaType() == "s" %}
-           {% if message.getSender().getName() == user or message.getSender().getName() == student%}
+        {% if message.name == q.student %}
                 <div class="sMessage">
-                <div class="messageMeta"> {{message.getSender().getName()}}</div>
-                <hr>{{message.getContent()}}<hr>
-                <div class="messageMeta">{{message.getTime().month}} {{message.getTime().day}}, {{message.getTime().year}}<br>
+                <div class="messageMeta"> {{message.name}}</div>
+                <hr>{{message.content}}<hr>
+                <div class="messageMeta">{{message.getTime().month}}/{{message.getTime().day}}/{{message.getTime().year}}<br>
                 {{message.getTime().hour}}:{{message.getTime().minute}}</div>
                 </div>
-            {% endif %}
         {% endif %}
     {% endfor %}
 </div>
