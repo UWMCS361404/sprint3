@@ -22,7 +22,6 @@ class InstructorCenter(webapp2.RequestHandler):
         QL = []
         SL = []
         LL = instructor.lectures
-        print("\t\t" + str(type(instructor.lectures)))
 
         #QL.append(Question.query(Question.lec == 'cs361').fetch())
         for lecName in instructor.lectures: # this is a list of Lecture names
