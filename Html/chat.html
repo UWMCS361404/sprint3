@@ -18,28 +18,29 @@ topic: {{q.topic}}
 
 <div class="chatArea">
     {% for m in q.ML %}
-        {% if message.name != q.student %}
+        {% if m.name != q.student %}
                 <div class="iMessage">
-                <div class="messageMeta"> {{message.name}}</div>
-                <hr>{{message.content}}<hr>
-                <div class="messageMeta">{{message.time.month}}/{{message.time.day}}/{{message.time.year}}<br>
-                {{message.time.hour}}:{{message.time.minute}}</div>
+                <div class="messageMeta"> {{m.name}}</div>
+                <hr>{{m.content}}<hr>
+                <div class="messageMeta">{{m.time.month}}/{{m.time.day}}/{{m.time.year}}<br>
+                {{m.time.hour}}:{{m.time.minute}}</div>
                 </div>
         {% endif %}
 
-        {% if message.name == q.student %}
+        {% if m.name == q.student %}
                 <div class="sMessage">
-                <div class="messageMeta"> {{message.name}}</div>
-                <hr>{{message.content}}<hr>
-                <div class="messageMeta">{{message.getTime().month}}/{{message.getTime().day}}/{{message.getTime().year}}<br>
-                {{message.getTime().hour}}:{{message.getTime().minute}}</div>
+                <div class="messageMeta"> {{m.name}}</div>
+                <hr>{{m.content}}<hr>
+                <div class="messageMeta">{{m.getTime().month}}/{{m.getTime().day}}/{{m.getTime().year}}<br>
+                {{m.getTime().hour}}:{{m.getTime().minute}}</div>
                 </div>
         {% endif %}
     {% endfor %}
 </div>
 
 <p>
-<form action="chat" method="post">
+<form action="/chat" method="post">
+<input type="hidden" name="quest" value="{{q.key.urlsafe()}}">
 <textarea name="message" placeholder="Ask New Question">
 </textarea><br>
 <input type="submit" value="Send"/>
