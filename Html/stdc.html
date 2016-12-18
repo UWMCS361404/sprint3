@@ -1,130 +1,62 @@
 <!DOCTYPE html>
-<style>
-table, th, td {
-    border: 1px solid black;
-    }
-
-
-    ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 1px solid #e7e7e7;
-    background-color: #f3f3f3;
-}
-
-    li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: #666;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover:not(.active) {
-    background-color: #ddd;
-}
-
-li a.active {
-    color: white;
-    background-color: #4CAF50;
-}
-
-        divi {
-        width: 200px;
-        height: 150px;
-            background: lightblue;
-            position: absolute;
-        -webkit-transition: height 2s; /* Safari */
-        transition: height 2s;
-            }
-
-/* For Safari 3.1 to 6.0 */
-
-#div2 {-webkit-transition-timing-function: ease;}
-
-
-/* Standard syntax */
-
-#div2 {transition-timing-function: ease;}
-
-divi:hover {
-    height: 500px;
-}
-
-</style>
 <html lang="en-US">
 <head>
 	<title>Student Center</title>
 	<link rel="stylesheet" type="text/css" href="Style/style.css">
 </head>
-
 <body>
-  <ul>
+<ul>
     <li><a class="active" href="/">Home</a></li>
     <li><a href="/faq">FAQ</a></li>
     <li><a href="/logout">Logout</a></li>
-</ul>
-<h1>
-Welcome {{CurrentUser}}
-</h1>
+</ul><h1>Welcome {{uNm.userName}}</h1>
 
-<div id="previous_questions">
+
 Your Previously asked questions:
-</div>
-<div style="color:blue;" align="center" id="list_of_questions">
-<form action="/chat" method="get">
-<table>
-<tr>
-      <td> </td>
 
-  <th>Question</th>
-  <th>Lecure</th>
-  <th>Time</th>
-      </tr>
-{% for q in QL %}
-<tr>
-  <td> <input type="radio" name="Quest" value="{{ q.key.urlsafe()}}" required></td>
-  <td>{{ q.topic }}</td>
-  <td>{{ q.lec }}</td>
-  <td>{{ q.time }}</td>
-</tr>
-{% endfor %}
-</table>
-	</table>
-</div>
-
-  <input type="submit" value="Go to Question">
+<form action="/chat?" method="get">
+    <table>
+        <tr>
+            <th>Question</th>
+            <th>Lecure</th>
+            <th>Time</th>
+        </tr>
+        {% for q in QL %}
+        <tr>
+            <td> <input type="radio" name="Quest" value="{{q.key.urlsafe()}}"required></td>
+            <td>{{q.topic}}</td>
+            <td>{{q.lec}}</td>
+            <td>{{q.time}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" value="Go to Question">
 </form>
 
-<form action="/studentcenter" method="post" id="questionForm">
 <br>
-<input type="text" name="topic" value="topic" rows="1" cols="48" required="True">Enter Subject</textarea>
-   <br>
-<input type="text" name="content" value="content" rows="5" cols="48" required="True">Enter Message body</textarea>
-<br>
+Ask new question:
+<form action="/studentcenter" method="post"><br>
+    Enter the Subject of the new question<br>
+    <input type="text" name="topic" cols="48" placeholder="Subject" required=True></input><br>
+    Enter the body of the question that you wish to ask<br>
+    <textarea name="content" rows="5" cols="48" required=True placeholder="Enter the body of the question"></textarea><br>
     <select name="lecture" form="questionForm">
-      {%for l in LL %}
-  <option value="{{l}}">{{l}}</option>
-      {% endfor %}
-    </select>
-
-    <br>
-    <input type="submit" value= "Ask a question"/>
-    </form>
+    {%for l in LL %}
+        <option value="{{l}}">{{l.name}}</option>
+    {% endfor %}
+    </select><br>
+    <input type="submit" value= "Ask question"/>
+</form>
 
 <div>
     <form action="/studentcenter" method="post" value="faq">
         <input type="text" name="lecture" required/> <br>
-        <input type="submit" value="Go to F.A.Q">
+        <input type="submit" value="Go to F.A.Q"><br>
     </form>
-	<a href="/faq">Go to F.A.Q</a>
+    
+    <form action="/logout">
+        <input type="submit" value="Logout">
+    </form>
 </div>
-
 </body>
 </html>

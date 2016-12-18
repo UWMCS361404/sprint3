@@ -1,3 +1,32 @@
+{%for s in SL %}
+      {{s}}
+  <option value="{{s}}">{{s}} </option>
+      {% endfor %}
+    </select>
+    <select name="lecture" form="questionForm">
+      {%for l in LL %}
+  <option value="{{l}}">{{l}}</option>
+      {% endfor %}
+    </select>
+
+<br>
+<input style="color:red;" type="submit" value= "Ask a question"/>
+</form>
+</div>
+<div  style="color:yellow;" align="center" id="gotoFAQ">
+	<td><a href="faqq.html">Go to F.A.Q</a></td>
+</div>
+<form action="/logout" method="get">
+<input type="submit" value="Logout"/>
+</form>
+{% if CurrentUser.aType == 'a' %}
+<form action="/admin" method="get">
+<input type="submit" value="AdminPagex"/>
+</form>
+{% endif %}
+
+</html>
+=======
 <!DOCTYPE html>
 <style>
 table, th, td {

@@ -27,51 +27,9 @@ from faq import *
 from questionanswer import *
 
 # end touples need to be fixed so they have logout and adminpage
-#userList = parseTxt("accounts.csv")
 parseUserString("es, Edward, 123, s\n")
 parseUserString("rds, Bob, 321, i\n")
 parseUserString("ksr, Kyle, asdf, a\n")
-
-
-
-lec = Lecture()
-lec.name = "CS002"
-lec.userNames = []
-lec.userNames.append("es")
-lec.userNames.append("ksr")
-user = User.query(User.Name=="ksr").get()
-print('\n\n\n')
-print(user)
-print('\n\n\n')
-lec.enroll(user)
-lec.QL = []
-if len(list(Lecture.query(Lecture.name == lec.name))) == 0:
-	lec.put()
-
-
-
-mess = Message()
-mess.content = "Q1, M1"
-mess.time = datetime.datetime.now()
-mess.name = "es"
-
-
-quest = Question()
-quest.topic = "Q1"
-quest.student = "es"
-quest.lec = 'CS001'
-quest.messageList = []
-quest.time = datetime.datetime.now()
-
-
-student = ndb.StringProperty()
-topic = ndb.StringProperty()
-lec = ndb.StringProperty()
-time = datetime.datetime.now()
-messageList = ndb.StructuredProperty(Message, repeated=True)
-
-
-
 
 app = webapp2.WSGIApplication([
 	('/', Login),
@@ -85,7 +43,7 @@ app = webapp2.WSGIApplication([
 	('/chat', Chat),
 	('/faq', FAQ)
 ])
-#
+
 # # Unit tests
 # suite = unittest.TestLoader().loadTestsFromTestCase(Test)
 # unittest.TextTestRunner().run(suite)

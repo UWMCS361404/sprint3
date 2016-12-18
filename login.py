@@ -51,7 +51,6 @@ class Login(webapp2.RequestHandler):
 
 
     def post(self):
-        validAcc = False
         uNm = self.request.get("uName")
         uPwd = self.request.get('uPass')
 
@@ -61,12 +60,13 @@ class Login(webapp2.RequestHandler):
         if len(query) != 0:
             if query[0].aType == "i":
                 self.response.set_cookie("CurrentUser", uNm, path="/")
+
                 self.redirect("/instructorcenter")
 
             elif query[0].aType == "a":
                 self.response.set_cookie("CurrentUser", uNm, path="/")
                 self.redirect("/instructorcenter")
-
+          
             elif query[0].aType == "s":
                 self.response.set_cookie("CurrentUser", uNm, path="/")
                 self.redirect("/studentcenter")

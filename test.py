@@ -44,3 +44,4 @@ class Test(unittest.TestCase):
 
     def testLoginCheck(self):
         self.assertEqual(Login().checkName("?"), False)
+

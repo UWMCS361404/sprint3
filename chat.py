@@ -15,55 +15,54 @@ from util import *
 from google.appengine.ext import ndb
 from google.appengine.ext import testbed
 
-# get question from url string from request Quest
-#         student = ndb.StringProperty()
-#         topic = ndb.StringProperty()
-#         lec = ndb.StringProperty()
-#         time = ndb.DateTimeProperty()
-#         answered = ndb.BooleanProperty()
-#         ML = ndb.StructuredProperty(Message, repeated=True)
+# Project imports
+from util import *
+from message import *
 
 
 class Chat(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENVIRONMENT.get_template('Html/chat.html')
-        qString = self.request.get("Quest")
-        CurrentUser = self.request.cookies.get("CurrentUser")
-        qKey = ndb.Key(urlsafe=qString)
-        q = qKey.get()
+       
+        user = getAccount(self.request.cookies.get("CurrentUser"))
+        messages = list(Message.query().order(Message.time, -Message.time))
+        chatKey = "/chat?Quest=" + self.request.get("Quest")
+                
+        question = ndb.Key(urlsafe=self.request.get("Quest")).get()
+        messages = list(question.ML)
+
+        accounts = []
+        
+        for i in range(len(messages)):
+            accounts.append(getAccount(messages[i].name))
+
         template_values = {
-            "q": q,
-            "CurrentUser": CurrentUser,
+            "user": user,
+            "messages": messages,
+            "chatKey": chatKey,
+            "size": len(messages),
+            "accounts": accounts
         }
+
         self.response.write(template.render(template_values))
-
-
-
-
-    # content = ndb.StringProperty()
-    # name = ndb.StringProperty()
-    # time = ndb.DateTimeProperty(auto_now_add=True)
 
     def post(self):
         if self.request.get("message").strip() == "":
             user = self.request.cookies.get("CurrentUser")
             self.redirect("/chat")
         else:
-            print("\n\n in else statement")
-            key_str = self.request.get("quest")
-            print(key_str)
-            print("in else statement after requesting \"quest\" \n\n")
-            my_key = ndb.Key(urlsafe=key_str)
-            q = ndb.Key(urlsafe=my_key).get()
-            #q = qKey.get()
-            #need to get question put new message in ML
-            content = self.request.get("content")
+
+            content = self.request.get("message")
             user = self.request.cookies.get("CurrentUser")
-            m = Message()
-            m.content = content
-            m.name = user
-            m.put()
-            q.ML.append(m)
-            q.put()
-            time.sleep(1)
-            self.redirect("/chat")
+            
+            message = Message()
+            message.content = content
+            message.name = user
+            message.time = datetime.datetime.now()
+            
+            question = ndb.Key(urlsafe=self.request.get("Quest"))
+            question = question.get()
+            question.ML.append(message)
+            question.put()
+            
+            self.redirect("/chat?Quest=" + self.request.get("Quest"))
