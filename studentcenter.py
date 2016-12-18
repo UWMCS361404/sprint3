@@ -11,7 +11,6 @@ from google.appengine.ext import ndb
 from google.appengine.ext import testbed
 
 # Project imports
-from lecture import *
 from user import *
 from util import *
 from question import *
@@ -36,6 +35,7 @@ class StudentCenter(webapp2.RequestHandler):
             "QL" : QL,
             "LL": LL,
         }
+
         self.response.write(template.render(template_values))
 
     def post(self):

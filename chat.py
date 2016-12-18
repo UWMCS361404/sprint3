@@ -13,15 +13,18 @@ from google.appengine.ext import testbed
 # Project imports
 from util import *
 from message import *
+### for testing only, 
 class Response(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENVIRONMENT.get_template('Html/responsive.html')
         self.response.write(template.render())
+        
 
 class Chat(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENVIRONMENT.get_template('Html/chat.html')
         CurrentUser = getAccount(self.request.cookies.get("CurrentUser"))
+
         messages = list(Message.query().order(Message.time, -Message.time))
         chatKey = "/chat?Quest=" + self.request.get("Quest")
         question = ndb.Key(urlsafe=self.request.get("Quest")).get()
@@ -43,7 +46,7 @@ class Chat(webapp2.RequestHandler):
         }
 
         self.response.write(template.render(template_values))
-
+        
     def post(self):
         if self.request.get("message").strip() == "":
             user = self.request.cookies.get("CurrentUser")
