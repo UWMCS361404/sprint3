@@ -21,9 +21,8 @@ autoescape=True)
 
 # parse Userstring should return the result of each attempt of makeing a new user
 # string would look like
-#
-def parseUserString(string):
 
+def parseUserString(string):
     subStr = string + "\n"
 
     while subStr != "":

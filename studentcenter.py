@@ -18,43 +18,31 @@ from question import *
 
 class StudentCenter(webapp2.RequestHandler):
     def get(self):
-        currentUser = self.request.cookies.get("CurrentUser")
-        student = User.query(User.Name == currentUser).get()
-        template = JINJA_ENVIRONMENT.get_template('Html/stdc.html')
-        LL = student.lectures
-        QL = []
-        for lecName in student.lectures:
-            lec = Lecture.query(Lecture.name==lecName).get()
-            for QuestionKey in lec.QL:
-                key = ndb.Key(urlsafe=QuestionKey)
-                q = key.get()
-                QL.append(q)
 
+        uNm = getAccount(self.request.cookies.get("CurrentUser"))
+
+        template = JINJA_ENVIRONMENT.get_template('Html/stdc.html')
+        QL = list(Question.query())
+        LL = list(Lecture.query())
+        
         template_values = {
-            "CurrentUser" : currentUser,
+            "uNm" : uNm,
             "QL" : QL,
-            "LL" : LL,
+            "LL": LL
         }
         self.response.write(template.render(template_values))
 
     def post(self):
-        q = Question()
-        m = Message()
-        q.student = self.request.cookies.get("CurrentUser")
-        q.topic = self.request.get("topic")
-        m.name = self.request.get("CurrentUser")
-        m.content = self.request.get("content")
-        q.lec = self.request.get("lecture")
-        q.time = datetime.datetime.now()
-        q.answered = False
-        q.ML.append(m)
-        lec = Lecture.query(Lecture.name==q.lec).get()
-        key = q.put().urlsafe()
-        if lec != None:
-            if lec.QL == None:
-                lec.QL = []
-            lec.QL.append(key)
-            m.put()
-            q.put()
-            lec.put()
-        self.redirect('/studentcenter')
+        question = Question()
+        question.owner= self.request.cookies.get("CurrentUser")
+        question.topic = self.request.get("topic")
+        question.content = self.request.get("content")
+        question.lec = self.request.get("class")
+        question.time = datetime.datetime.now()
+        question.answered = False
+        question.message=[]
+        
+        lecture = self.request.get("lecture")
+
+        question.put()
+        self.redirect("/studentcenter" + "?quest" + self.request.get("Quest"))

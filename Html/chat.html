@@ -11,34 +11,41 @@ FAQit Web App Chat
 <hr>
 <p>
 
-{{q.student}}'s question for {{ q.lec }}
-topic: {{q.topic}}
-
+{{user.userName}}'s Chat History With: {{student}}
+Total number of messages in this thread: {{size}}
 </p>
 
 <div class="chatArea">
-    {% for m in q.ML %}
-        {% if m.name != q.student %}
-                <div class="iMessage">
-                <div class="messageMeta"> {{m.name}}</div>
-                <hr>{{m.content}}<hr>
-                <div class="messageMeta">{{m.time.month}}/{{m.time.day}}/{{m.time.year}}<br>
-                {{m.time.hour}}:{{m.time.minute}}</div>
+    {% for i in range(size) %}
+        {%if accounts[i].aType == "i"%}
+            <div class="iMessage">
+                <div class="messageMeta">
+                    {{accounts[i].userName}}<hr>
                 </div>
-        {% endif %}
-
-        {% if m.name == q.student %}
-                <div class="sMessage">
-                <div class="messageMeta"> {{m.name}}</div>
-                <hr>{{m.content}}<hr>
-                <div class="messageMeta">{{m.getTime().month}}/{{m.getTime().day}}/{{m.getTime().year}}<br>
-                {{m.getTime().hour}}:{{m.getTime().minute}}</div>
+                    {{messages[i].content}}<hr>
+                <div class="messageMeta">
+                    {{messages[i].time}}
                 </div>
-        {% endif %}
+            </div>
+        {%endif%}
+        
+        {%if accounts[i].aType == "s"%}
+            <div class="iMessage">
+                <div class="messageMeta">
+                    {{accounts[i].userName}}<hr>
+                </div>
+                {{messages[i].content}}<hr>
+                <div class="messageMeta">
+                    {{messages[i].time}}
+                </div>
+            </div>
+        {%endif%}
     {% endfor %}
 </div>
 
 <p>
+    <textarea name="message" placeholder="Ask New Question"></textarea><br>
+    <input type="submit" value="Send"/>
 <form action="/chat" method="post">
 <input type="hidden" name="quest" value="{{q.key.urlsafe()}}">
 <textarea name="message" placeholder="Ask New Question">
@@ -46,8 +53,8 @@ topic: {{q.topic}}
 <input type="submit" value="Send"/>
 </form>
 
-<form action="instructorcenter" method="get">
-<input type="submit" value="Back"/>
+<form action="/" method="get">
+    <input type="submit" value="Back"/>
 </form>
 
 <hr>
