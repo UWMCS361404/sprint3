@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>    
+<html>
 <head>
 <link rel="stylesheet" type="text/css" href="Style/style.css">
 <title>FAQit Message Center</title>
@@ -12,7 +12,7 @@
 {% for item in userList %}
     {% if item.getaType() == "i" and item.getName() == user%}
         Which user would you like to converse with:
-        
+
         <form action="messcenter" method="post">
         {% for student in userList %}
             {% if student.getName() != user%}

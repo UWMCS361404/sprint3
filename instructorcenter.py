@@ -26,8 +26,6 @@ class InstructorCenter(webapp2.RequestHandler):
         #QL.append(Question.query(Question.lec == 'cs361').fetch())
         for lecName in instructor.lectures: # this is a list of Lecture names
             lec = Lecture.query(Lecture.name==lecName).get()                       # get lecture from name
-            print("\n\n\n\t\t\tprint Lecture.query(Lecture.name==lecName).get()\n\t")
-            print(lec)
             for QuestionKey in lec.QL:
                 print(QuestionKey)
                 key = ndb.Key(urlsafe=QuestionKey)       # construct key

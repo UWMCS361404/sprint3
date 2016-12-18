@@ -41,7 +41,9 @@ app = webapp2.WSGIApplication([
     ('/studentcenter', StudentCenter),
     ('/instructorcenter', InstructorCenter),
 	('/chat', Chat),
-	('/faq', FAQ)
+	('/faq', FAQ),
+	('/response', Response),
+
 ])
 
 # # Unit tests

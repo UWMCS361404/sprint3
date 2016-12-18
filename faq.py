@@ -18,6 +18,7 @@ from questionanswer import *
 
 class FAQ(webapp2.RequestHandler):
     def get(self):
+        CurrentUser = self.request.cookies.get("CurrentUser")
         #fromPage self.request.get("fromPage")
         #if fromPage ==
         template = JINJA_ENVIRONMENT.get_template("/Html/faq.html")
@@ -26,7 +27,7 @@ class FAQ(webapp2.RequestHandler):
         # faqs = list(Topic.query().order(Topic.heading, -Topic.heading))
 
         template_values = {
-            "user": getAccount(user),
+            "CurrentUser": CurrentUser ,
             "topics": topics,
         #    "fromPage": fromPage
         }

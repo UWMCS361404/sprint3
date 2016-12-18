@@ -69,36 +69,36 @@ divi:hover {
     <li><a class="active" href="/">Home</a></li>
     <li><a href="/faq">FAQ</a></li>
     <li><a href="/logout">Logout</a></li>
-</ul>
+  </ul>
 <h1>FAQit FAQ</h1>
 
-{% for faq in faqs %}
-<ol>
+{% for topic in topics %}
     <div class="qaSubsection">
-
-        {{faq.getHeading()}}
-        <div class="question">
-            {{faq.getQuestion()}}
-        </div><div class="answer">
-            {{faq.getAnswer()}}
-        </div>
+    {{ topic.heading }}
+      {% for qa in topic.QAs %}
+      <div class="question">
+        {{ qa.question }}
+      </div>
+      <div class="answer">
+        {{ qa.answer}}
+      </div>
+      {% endfor %}
     </div>
+    <br>
 {% endfor %}
 
-{% if user.aType == "i" %}
-<form action="faq" method="post">
+{% if CurrentUser.aType == "i" or CurrentUser.aType == "a" %}
+<form action="/faq" method="post">
         Enter the heading for the FAQ item:<br>
-        <input type="text" name="heading" placeholder="Header"><br>
+        <input type="text" name="heading" required placeholder="Header"><br>
 
         Enter the question for the new FAQ item:<br>
-        <textarea  name="question" placeholder="Add new question"></textarea><br>
+        <textarea  name="question" required placeholder="Add new question"></textarea><br>
 
         Enter the answer for the new FAQ item:<br>
         <textarea name="answer" placeholder="Add new answer"></textarea><br>
-        <input type="submit" value="Submit FAQ">
+        <input type="submit" required value="Submit FAQ">
 </form>
 {% endif %}
-
-    <input type="submit" value ="Go Back">
 </body>
 </html>
