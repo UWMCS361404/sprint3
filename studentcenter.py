@@ -11,14 +11,12 @@ from google.appengine.ext import ndb
 from google.appengine.ext import testbed
 
 # Project imports
-from lecture import *
 from user import *
 from util import *
 from question import *
 
 class StudentCenter(webapp2.RequestHandler):
     def get(self):
-
         uNm = getAccount(self.request.cookies.get("CurrentUser"))
 
         template = JINJA_ENVIRONMENT.get_template('Html/stdc.html')
@@ -30,6 +28,7 @@ class StudentCenter(webapp2.RequestHandler):
             "QL" : QL,
             "LL": LL
         }
+
         self.response.write(template.render(template_values))
 
     def post(self):

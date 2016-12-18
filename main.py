@@ -27,9 +27,9 @@ from faq import *
 from questionanswer import *
 
 # end touples need to be fixed so they have logout and adminpage
-parseUserString("es, Edward, 123, s\n")
-parseUserString("rds, Bob, 321, i\n")
-parseUserString("ksr, Kyle, asdf, a\n")
+parseUserString("es, Edward, 123, s\n") # Changed dummy names to mach their account type
+parseUserString("rdsi, Bob, 321, i\n")
+parseUserString("ksra, Kyle, asdf, a\n")
 
 app = webapp2.WSGIApplication([
 	('/', Login),

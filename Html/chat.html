@@ -6,11 +6,9 @@ FAQit Web App Chat
 <link rel="stylesheet" type="text/css" href="Style/style.css">
 </head>
 <body>
-  <img src="style/wallpapersprint.png" style="width:500px;height:100px;">
-<h1>FAQit Chat Client ({{CurrentUser}})</h1>
+<h1>FAQit Chat Client</h1>
 <hr>
 <p>
-
 {{user.userName}}'s Chat History With: {{student}}
 Total number of messages in this thread: {{size}}
 </p>
@@ -44,13 +42,9 @@ Total number of messages in this thread: {{size}}
 </div>
 
 <p>
+<form action="{{chatKey}}" method="post">
     <textarea name="message" placeholder="Ask New Question"></textarea><br>
     <input type="submit" value="Send"/>
-<form action="/chat" method="post">
-<input type="hidden" name="quest" value="{{q.key.urlsafe()}}">
-<textarea name="message" placeholder="Ask New Question">
-</textarea><br>
-<input type="submit" value="Send"/>
 </form>
 
 <form action="/" method="get">
