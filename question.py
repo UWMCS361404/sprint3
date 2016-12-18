@@ -10,20 +10,23 @@ import unittest
 from google.appengine.ext import ndb
 from google.appengine.ext import testbed
 
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=['jinja2.ext.autoescape'],
-autoescape=True)
-
 # Project imports
 from message import *
+from util import *
+
+# Question
+#     student is the name of the student involved in the question
+#     topic is a string to be displayed on QL
+#     lec is what Lecture the question is to
+#     messageList holds message objects. Can be sorted and keeps the order in which they were added.
 
 class Question(ndb.Model):
     student = ndb.StringProperty()
     topic = ndb.StringProperty()
     lec = ndb.StringProperty()
-    time = datetime.datetime.now()
-    #messageList = ndb.StructuredProperty(Message, Repeated=True)
+    time = ndb.DateTimeProperty()
+    answered = ndb.BooleanProperty()
+    ML = ndb.StructuredProperty(Message, repeated=True) # ML => Message List
 
     def toString(self):
         s = (("(")+ self.topic + (",") + self.lec  + (",") + self.time  + (",") + ("{") )

@@ -27,18 +27,23 @@ from faq import *
 from questionanswer import *
 
 # end touples need to be fixed so they have logout and adminpage
-#userList = parseTxt("accounts.csv")
-parseUserString("ed, Edward, 123, i\n")
-parseUserString("al, Albert, 321, s\n")
+parseUserString("es, Edward, 123, s\n") # Changed dummy names to mach their account type
+parseUserString("rdsi, Bob, 321, i\n")
+parseUserString("ksra, Kyle, asdf, a\n")
 
 app = webapp2.WSGIApplication([
 	('/', Login),
+	('/createLecture', CreateLecture),
+	('/createUsers', CreateUsers),
+	('/enroll', Enroll),
+	('/admin', AdminPage),
+	('/logout', Logout),
     ('/studentcenter', StudentCenter),
     ('/instructorcenter', InstructorCenter),
 	('/chat', Chat),
 	('/faq', FAQ)
 ])
 
-# Unit tests
-suite = unittest.TestLoader().loadTestsFromTestCase(Test)
-unittest.TextTestRunner().run(suite)
+# # Unit tests
+# suite = unittest.TestLoader().loadTestsFromTestCase(Test)
+# unittest.TextTestRunner().run(suite)

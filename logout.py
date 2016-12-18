@@ -7,6 +7,7 @@ import datetime
 import calendar
 import unittest
 
+from user import *
 from google.appengine.ext import ndb
 from google.appengine.ext import testbed
 
@@ -16,4 +17,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 autoescape=True)
 
 class Logout(webapp2.RequestHandler):
-    """stuff here"""
+    def get(self):
+        self.response.delete_cookie('CurrentUser')
+        self.redirect("/")

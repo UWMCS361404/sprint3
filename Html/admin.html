@@ -1,0 +1,56 @@
+<DOCTYPE html>
+  <html>
+    <head>
+      <!-- <link rel="stylesheet" type="text/css" href="style/style.css"> -->
+      <title>
+        Administrator Page
+      </title>
+    </head>
+    <body><img src="style/wallpapersprint.png">
+
+      <form action="/createUsers" method="post">
+        <textarea rows="4" cols="50" name="userText"></textarea>
+        <input type="submit" value="Submit">
+      </form>
+      <div  id="div2" align="center">
+        <h2 style="color:black;"> Enroll Users into lectures</h2>
+        <form action="/enroll" method="post" >
+          <table>
+            <tr>
+              <th>Users</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+              <td><input type="checkbox" value="{{user.Name}}" name="users"> {{user.Name}} ({{user.userName}})<br></td>
+            </tr>
+            {% endfor %}
+          </table>
+          <table>
+            <tr>
+              <th>Lectures</th>
+            </tr>
+            {% for l in lectures %}
+            <tr>
+              <td><input type="checkbox" value="{{l.name}}" name="lectures"> {{l.name}}<br></td>
+            </tr>
+            {% endfor %}
+          </table>
+          <input type="submit" value="Submit">
+        </form>
+        <br>
+      </div>
+
+      <div align="center" id="div2">
+        <form action="/createLecture" method="post">
+          <h2 style="color:black;"> Make new Lecture</h2>
+          <br>
+          <p>Make new Lecture down Below</p>
+          <input type="text" name="lecName" required="True">
+          <br>
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+
+
+    </body>
+  </html>
