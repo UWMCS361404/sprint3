@@ -1,17 +1,81 @@
 <!DOCTYPE html>
-<html>    
+<style>
+table, th, td {
+    border: 1px solid black;
+    }
+
+
+    ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+}
+
+    li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: #666;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+li a.active {
+    color: white;
+    background-color: #4CAF50;
+}
+
+        divi {
+        width: 200px;
+        height: 150px;
+            background: lightblue;
+            position: absolute;
+        -webkit-transition: height 2s; /* Safari */
+        transition: height 2s;
+            }
+
+/* For Safari 3.1 to 6.0 */
+
+#div2 {-webkit-transition-timing-function: ease;}
+
+
+/* Standard syntax */
+
+#div2 {transition-timing-function: ease;}
+
+divi:hover {
+    height: 500px;
+}
+
+</style>
+<html>
 <head>
 <link rel="stylesheet" type="text/css" href="Style/style.css">
 <title>FAQit Frequently Asked Questions</title>
 </head>
 
 <body>
+  <ul>
+    <li><a class="active" href="/">Home</a></li>
+    <li><a href="/faq">FAQ</a></li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
 <h1>FAQit FAQ</h1>
 
 {% for faq in faqs %}
 <ol>
     <div class="qaSubsection">
-        
+
         {{faq.getHeading()}}
         <div class="question">
             {{faq.getQuestion()}}
@@ -25,7 +89,7 @@
 <form action="faq" method="post">
         Enter the heading for the FAQ item:<br>
         <input type="text" name="heading" placeholder="Header"><br>
-        
+
         Enter the question for the new FAQ item:<br>
         <textarea  name="question" placeholder="Add new question"></textarea><br>
 

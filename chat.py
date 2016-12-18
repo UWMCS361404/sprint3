@@ -7,6 +7,11 @@ import datetime
 import calendar
 import unittest
 
+from message import *
+from question import *
+from user import *
+from util import *
+
 from google.appengine.ext import ndb
 from google.appengine.ext import testbed
 
@@ -14,10 +19,11 @@ from google.appengine.ext import testbed
 from util import *
 from message import *
 
+
 class Chat(webapp2.RequestHandler):
     def get(self):
         template = JINJA_ENVIRONMENT.get_template('Html/chat.html')
-        
+       
         user = getAccount(self.request.cookies.get("CurrentUser"))
         messages = list(Message.query().order(Message.time, -Message.time))
         chatKey = "/chat?Quest=" + self.request.get("Quest")
@@ -39,12 +45,13 @@ class Chat(webapp2.RequestHandler):
         }
 
         self.response.write(template.render(template_values))
-        
+
     def post(self):
         if self.request.get("message").strip() == "":
             user = self.request.cookies.get("CurrentUser")
             self.redirect("/chat")
         else:
+
             content = self.request.get("message")
             user = self.request.cookies.get("CurrentUser")
             

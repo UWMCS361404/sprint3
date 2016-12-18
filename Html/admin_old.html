@@ -1,0 +1,157 @@
+<DOCTYPE html>
+    <html><head>
+        <link rel="stylesheet" type="text/css" href="style/style.css">
+        <title>
+        Administrator Page
+        </title>
+        <style>
+        div {
+        width: 200px;
+        height: 130px;
+            background: #42b9f4;
+            position: absolute;
+        -webkit-transition: height 2s; /* Safari */
+        transition: height 2s;
+            }
+
+/* For Safari 3.1 to 6.0 */
+
+#div2 {-webkit-transition-timing-function: ease;}
+
+
+/* Standard syntax */
+
+#div2 {transition-timing-function: ease;}
+
+div:hover {
+    height: 400px;
+}
+
+table {
+    margin-left:250px;
+
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+table#t01 tr:nth-child(even) {
+    background-color: #eee;
+}
+table#t01 tr:nth-child(odd) {
+   background-color:#fff;
+}
+table#t01 th {
+    background-color: black;
+    color: white;
+}
+
+
+
+</style>
+        </head>
+        <body><img src="style/wallpapersprint.png" style="width:200px;height:100px;">
+
+
+            <br>
+            <form action="student" method="post">
+                <div  id="div2">
+                <h2 style="color:black;"> Make new Students</h2>
+
+                    <p style="color:white;">Hold for help</p>    <br>
+                <p style="color:white;">*To make a new student, Enter data Exactly as follows. **Account type: Student = "s" And Instructor = "i"</p>
+                <p style="color:white;">Name,User Name, Password, **Account type</p>
+                </div>
+                <p style="color:black;margin-left:500px;">Enter data below</p>
+                <textarea name= "input" style="color:red;margin-left:500px;" rows="25" cols="50" name = "newUsers">
+
+                </textarea>
+                <br>
+
+            <input style="color:black;margin-left:500px;" type="submit" value="Submit">
+            </form>
+
+            <br>
+            <form action="/admin" method="createStudents">
+                <div  id="div2">
+                <h2 style="color:black;"> Make new Students</h2>
+
+                    <p style="color:white;">Hold for help</p>    <br>
+                <p style="color:white;">*To make a new student, Enter data Exactly as follows. **Account type: Student = "s" And Instructor = "i"</p>
+                <p style="color:white;">Name,User Name, Password, **Account type</p>
+                </div>
+                <p style="color:black;margin-left:500px;">Enter data below</p>
+                <textarea name= "input" style="color:red;margin-left:500px;" rows="25" cols="50" name = "newUsers">
+
+                </textarea>
+                <br>
+
+            <input style="color:black;margin-left:500px;" type="submit" value="Submit">
+            </form>
+
+            <br>
+
+                <div  id="div2">
+                <h2 style="color:black;"> Enroll Students into lectures</h2>
+
+                    <p style="color:white;">Hold for help</p>    <br>
+                <p style="color:white;">Select The student(s) to enroll into classes</p>
+                <p style="color:white;">Select Classes to enroll into, then press submit</p>
+                </div>
+
+
+            <form action="enroll">
+                <div2 style="color:black;margin-left:500px;">
+                <!--admin = self.request.cookies.get("CurentUser"),,, then pass in as template-->
+                <select>
+                    {% for item in admin.Lecture.Query.fetch() %}
+                    <option value="{{item.name}}">{{item.name}}</option>
+                </select>
+
+                <input type="text" name="StudentName">
+
+
+
+                    <input type="submit">
+                <div2>
+
+            </form>
+ <!--
+    <form action="enroll" >
+                 <table style="color:black;margin-left:500px;">
+  <tr>
+    <th>Students</th>
+
+  </tr>
+
+    {% for s in SL %}
+  <tr>
+    <td><input type="checkbox" name="{{s.name}}"> {{s.name}}<br></td>
+  </tr>
+    {% endfor %}
+
+</table>
+                   <table style="color:black;margin-left:500px;">
+  <tr>
+    <th>Lectures</th>
+
+  </tr>
+
+    {% for l in LL %}
+  <tr>
+    <td><input type="checkbox" name="{{l.name}}"> {{l.name}}<br></td>
+  </tr>
+    {% endfor %}
+
+</table>
+<br>
+
+               <input style="color:black;margin-left:500px;" type="submit" value="Submit">
+            </form>
+
+-->
+        </body>
