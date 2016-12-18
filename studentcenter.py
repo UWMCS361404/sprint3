@@ -17,16 +17,23 @@ from question import *
 
 class StudentCenter(webapp2.RequestHandler):
     def get(self):
-        uNm = getAccount(self.request.cookies.get("CurrentUser"))
+
+        CurrentUser = getAccount(self.request.cookies.get("CurrentUser"))
+        student = User.query(User.Name == CurrentUser.Name).get()
 
         template = JINJA_ENVIRONMENT.get_template('Html/stdc.html')
-        QL = list(Question.query())
-        LL = list(Lecture.query())
-        
+        #QL = list(Question.query())
+        #LL = list(Lecture.query())
+        LL = []
+        for lecName in student.lectures:
+            LL.append(Lecture.query(Lecture.name==lecName).get())                      # get lecture from name
+        QL = Question.query(Question.student == student.Name).fetch()
+
+
         template_values = {
-            "uNm" : uNm,
+            "CurrentUser" : student,
             "QL" : QL,
-            "LL": LL
+            "LL": LL,
         }
 
         self.response.write(template.render(template_values))
@@ -40,7 +47,7 @@ class StudentCenter(webapp2.RequestHandler):
         question.time = datetime.datetime.now()
         question.answered = False
         question.message=[]
-        
+
         lecture = self.request.get("lecture")
 
         question.put()

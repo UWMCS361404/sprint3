@@ -1,13 +1,75 @@
 <DOCTYPE html>
+  <style>
+  table {
+        border-bottom: 1px solid black;
+        border-left: 1px solid black;
+        margin-right: 50%;
+  }
+  tr, th {
+        float: left:
+  }
+
+  ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        border: 1px solid #e7e7e7;
+        background-color: #f3f3f3;
+  }
+
+  div {
+        margin-left: 40%;
+        margin-right: 30%;
+  }
+
+  li {
+        float: left;
+  }
+
+  li a {
+        display: block;
+        color: #666;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+  }
+
+  li a:hover:not(.active) {
+        background-color: #ddd;
+  }
+
+  li a.active {
+        color: white;
+        background-color: #4CAF50;
+  }
+
+        divi {
+        width: 200px;
+        height: 150px;
+        background: lightblue;
+        position: absolute;
+        -webkit-transition: height 2s; /* Safari */
+        transition: height 2s;
+  }
+
+  </style>
   <html>
     <head>
-      <!-- <link rel="stylesheet" type="text/css" href="style/style.css"> -->
+      <link rel="stylesheet" type="text/css" href="style/style.css">
       <title>
         Administrator Page
       </title>
     </head>
     <body><img src="style/wallpapersprint.png">
-
+      <ul>
+        <li><a class="active" href="/">Home</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/logout">Logout</a></li>
+        {% if CurrentUser.aType == 'a' %}
+        <li><a href="/admin"> Admin Page </a></li>
+        {% endif %}
+      </ul>
       <form action="/createUsers" method="post">
         <textarea rows="4" cols="50" name="userText"></textarea>
         <input type="submit" value="Submit">
